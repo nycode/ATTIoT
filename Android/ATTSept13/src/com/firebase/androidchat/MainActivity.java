@@ -39,7 +39,7 @@ public class MainActivity extends ListActivity {
 		setTitle("Chatting as " + username);
 
 		// Setup our Firebase ref
-		ref = new Firebase(FIREBASE_URL).child("chat");
+//		ref = new Firebase(FIREBASE_URL).child("chat");
 
 		// Setup our input methods. Enter key on the keyboard or pushing the send button
 		EditText inputText = (EditText) findViewById(R.id.messageInput);
@@ -59,16 +59,20 @@ public class MainActivity extends ListActivity {
 //				sendMessage();
 				Intent i = new Intent(getApplicationContext(), QuestionActivity.class);
 				Bundle b= new Bundle();
+				
+				b.putInt("QuestionID", 101);
+				b.putString("UserID", username);
+				
 				b.putCharSequence("Course_name", "Art History");
 				b.putCharSequence("Course_question", "Who painted Sistine Chapel ,yeah?");
 				ArrayList<String> answerOptions = new ArrayList<String>(4);
 				for (int j =0 ; j < 4; j++) {
 					answerOptions.add("");
 				}
-				answerOptions.set(0, "Leonardo da Vinci");
-				answerOptions.set(1, "Michelangelo");
-				answerOptions.set(2, "Sandro Botticelli");
-				answerOptions.set(3, "Raphael");
+				answerOptions.set(0, "Leonardo da Vinci 1");
+				answerOptions.set(1, "Michelangelo 2" );
+				answerOptions.set(2, "Sandro Botticelli 3");
+				answerOptions.set(3, "Raphael 4");
 				b.putStringArrayList("Course_question_answer", answerOptions);
 				i.putExtras(b);
 				startActivity(i);
@@ -83,7 +87,7 @@ public class MainActivity extends ListActivity {
 		// Setup our view and list adapter. Ensure it scrolls to the bottom as data changes
 		final ListView listView = getListView();
 		// Tell our list adapter that we only want 50 messages at a time
-		chatListAdapter = new ChatListAdapter(ref.limit(50), this, R.layout.chat_message, username);
+		/*chatListAdapter = new ChatListAdapter(ref.limit(50), this, R.layout.chat_message, username);
 		listView.setAdapter(chatListAdapter);
 		chatListAdapter.registerDataSetObserver(new DataSetObserver() {
 			@Override
@@ -91,10 +95,10 @@ public class MainActivity extends ListActivity {
 				super.onChanged();
 				listView.setSelection(chatListAdapter.getCount() - 1);
 			}
-		});
+		});*/
 
 		// Finally, a little indication of connection status
-		connectedListener = ref.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
+		/*connectedListener = ref.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
 			@Override
 			public void onDataChange(DataSnapshot dataSnapshot) {
 				boolean connected = (Boolean) dataSnapshot.getValue();
@@ -109,14 +113,14 @@ public class MainActivity extends ListActivity {
 			public void onCancelled() {
 				// No-op
 			}
-		});
+		});*/
 	}
 
 	@Override
 	public void onStop() {
 		super.onStop();
-		ref.getRoot().child(".info/connected").removeEventListener(connectedListener);
-		chatListAdapter.cleanup();
+//		ref.getRoot().child(".info/connected").removeEventListener(connectedListener);
+//		chatListAdapter.cleanup();
 	}
 
 	private void setupUsername() {
