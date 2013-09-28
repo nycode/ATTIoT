@@ -15,6 +15,10 @@ public class Answer {
         option = opt;
     }
 
+    /**
+     * 
+     * @return
+     */
 	public int getQuestionID() {
 		return questionID;
 	}
